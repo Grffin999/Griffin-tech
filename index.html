@@ -90,15 +90,81 @@
 
     <section id="contact" class="section">
         <h2 class="section-title" style="text-align: center; border: none;">Get In Touch</h2>
-        <form class="contact-form" action="https://formspree.io/f/your_formspree_id" method="POST">
-            <input type="text" name="name" placeholder="Your Name" required>
-            <input type="email" name="email" placeholder="Your Email Address" required>
-            <textarea name="message" rows="5" placeholder="Tell me details about your app or web project..." required></textarea>
-            <button type="submit">Send Message</button>
-        </form>
-    </section>
+        
+        <!-- Contact Info Cards -->
+        <div class="grid" style="margin-bottom: 3rem; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));">
+            <div class="card" style="text-align: center; padding: 1.5rem;">
+                <h3>📧 Email Me</h3>
+                <p><a href="mailto:your.email@gmail.com" style="color: var(--accent-color); text-decoration: none;">your.email@gmail.com</a></p>
+            </div>
+            <div class="card" style="text-align: center; padding: 1.5rem;">
+                <h3>📞 Call / WhatsApp</h3>
+                <p><a href="tel:+1234567890" style="color: var(--accent-color); text-decoration: none;">+1 (234) 567-890</a></p>
+            </div>
+        </div>
 
+        <div class="grid" style="grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 3rem;">
+            <!-- Interactive Budget Calculator Feature -->
+            <div class="card" style="display: flex; flex-direction: column; gap: 1.5rem;">
+                <h3 style="color: var(--accent-color);">🧮 Interactive Project Estimator</h3>
+                <p style="font-size: 0.9rem; margin-bottom: 0.5rem;">Use this live tool to estimate your project scope. Built entirely with vanilla JavaScript to showcase dynamic UI functionality!</p>
+                
+                <div>
+                    <label for="pages-range" style="display:block; font-size:0.9rem; margin-bottom:0.5rem;">Number of App Screens/Pages: <span id="pages-val" style="color:var(--accent-color); font-weight:bold;">5</span></label>
+                    <input type="range" id="pages-range" min="1" max="20" value="5" style="width:100%; accent-color:var(--accent-color);">
+                </div>
+
+                <div>
+                    <label style="display:block; font-size:0.9rem; margin-bottom:0.5rem;">Additional Features:</label>
+                    <label style="display:block; font-size:0.9rem; margin-bottom:0.3rem;"><input type="checkbox" id="feat-auth" checked style="accent-color:var(--accent-color);"> User Authentication (Login/Signup)</label>
+                    <label style="display:block; font-size:0.9rem; margin-bottom:0.3rem;"><input type="checkbox" id="feat-pay" style="accent-color:var(--accent-color);"> Payment Gateway Integration</label>
+                    <label style="display:block; font-size:0.9rem;"><input type="checkbox" id="feat-push" style="accent-color:var(--accent-color);"> Push Notifications API</label>
+                </div>
+
+                <div style="border-top: 1px solid #334155; padding-top: 1rem; margin-top: auto;">
+                    <span style="font-size:0.9rem; color:var(--text-muted);">Estimated Investment:</span>
+                    <div style="font-size: 2rem; font-weight: 800; color: var(--accent-color);">$<span id="total-price">650</span></div>
+                </div>
+            </div>
+
+            <!-- Contact Form -->
+            <form class="contact-form" action="https://formspree.io/f/your_formspree_id" method="POST" style="margin: 0; max-width: 100%;">
+                <input type="text" name="name" placeholder="Your Name" required>
+                <input type="email" name="email" placeholder="Your Email Address" required>
+                <textarea name="message" rows="5" placeholder="Tell me details about your app or web project..." required></textarea>
+                <button type="submit">Send Message</button>
+            </form>
+        </div>
+    </section>
     <footer><p>&copy; 2026 Griffin Development. All rights reserved.</p></footer>
 
 </body>
 </html>
+// Interactive Calculator Logic
+    const pagesRange = document.getElementById('pages-range');
+    const pagesVal = document.getElementById('pages-val');
+    const featAuth = document.getElementById('feat-auth');
+    const featPay = document.getElementById('feat-pay');
+    const featPush = document.getElementById('feat-push');
+    const totalPrice = document.getElementById('total-price');
+
+    function calculateCost() {
+        const screens = parseInt(pagesRange.value);
+        pagesVal.textContent = screens;
+
+        // Base rate calculation: e.g., $100 per screen
+        let cost = screens * 100;
+
+        // Add feature costs dynamically
+        if (featAuth.checked) cost += 150;
+        if (featPay.checked) cost += 250;
+        if (featPush.checked) cost += 100;
+
+        totalPrice.textContent = cost;
+    }
+
+    // Attach real-time input event listeners
+    pagesRange.addEventListener('input', calculateCost);
+    featAuth.addEventListener('change', calculateCost);
+    featPay.addEventListener('change', calculateCost);
+    featPush.addEventListener('change', calculateCost);
